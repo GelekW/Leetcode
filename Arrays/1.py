@@ -1,20 +1,24 @@
-# 1. Two Sum
-# Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-# You may assume that each input would have exactly one solution, and you may not use the same element twice.
-# You can return the answer in any order.
-
-# Constraints:
-# 2 <= nums.length <= 104
-# -109 <= nums[i] <= 109
-# -109 <= target <= 109
-# Only one valid answer exists.
+# Notes:
+# Pre-problem thoughts:
+# - Unsorted → No 2 pointer (or sort and 2 pointer?)
+# - Duplicates allowed
+# - Negatives nums and targets allowed
+# - Too big too brute-force (n !<= 1000)
+# - sort + 2pointer = O(nlogn) + O(n) = O(nlogn), O(1) space
+# - hash map = O(n) time, O(n) space 
+# - hash map wins
+# 
+# Problem thoughts:
+# - go through arr
+# - if compliment of num in dict, return
+# - else put in compliment
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seen = {}
-        for i, num in enumerate(nums):
-            complement = target - num
-            if complement in seen:
-                return [seen[complement], i]
-            seen[num] = i
-        return []
+        compliments = {}
+        for idx, num in enumerate(nums):
+            compliment = target - num
+            if compliment in compliments:
+                return [compliments[compliment], idx]
+            else:
+                compliments[num] = idx
